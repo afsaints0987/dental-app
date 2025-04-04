@@ -1,6 +1,8 @@
 import express from 'express'
 import cors from 'cors'
 import dotenv from 'dotenv'
+import authRoute from './route/AuthRoute.js'
+import { authenticateToken } from './middleware/AuthMiddleware.js'
 
 dotenv.config()
 const app = express()
@@ -11,9 +13,8 @@ app.use(cors({
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 
-app.get('/', (req, res) => {
-    res.send('Hello World')
-})
+app.use('/auth', authRoute)
+app.use('/contact', authenticateToken, authRoute)
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`)
