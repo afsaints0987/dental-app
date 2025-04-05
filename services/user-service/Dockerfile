@@ -1,8 +1,8 @@
 # Use node version image as the base image
-FROM node:22.14
+FROM node:22
 
 # Set the working directory to /app
-WORKDIR /app
+WORKDIR /user-service/src/app
 
 # Copy package.json and package-lock.json into the container
 COPY package*.json ./
@@ -14,7 +14,7 @@ RUN npm ci
 COPY . .
 
 # Expose the port of app listens
-EXPOSE 8080
+EXPOSE 8081
 
 # Start the app
 CMD ["npm", "run", "server"]
